@@ -50,7 +50,7 @@ def _debug(*args):
         logger = logging.getLogger("http.cookiejar")
     return logger.debug(*args)
 
-
+HTTPONLY_ATTR = "HTTPOnly"
 DEFAULT_HTTP_PORT = str(http.client.HTTP_PORT)
 MISSING_FILENAME_TEXT = ("a filename was not supplied (nor was the CookieJar "
                          "instance initialised with one)")
@@ -2025,7 +2025,7 @@ class MozillaCookieJar(FileCookieJar):
 
                 # detect httponly flag if present
                 if line.startswith(self.httponly_prefix):
-                    rest["httponly"] = True
+                    rest[HTTPONLY_ATTR] = ""
                     line = line[len(self.httponly_prefix):]
 
                 # last field may be absent, so keep any trailing tab
@@ -2110,7 +2110,7 @@ class MozillaCookieJar(FileCookieJar):
                 else:
                     name = cookie.name
                     value = cookie.value
-                if cookie.get_nonstandard_attr("httponly", False):
+                if cookie.has_nonstandard_attr(HTTPONLY_ATTR):
                     domain = self.httponly_prefix + domain
                 f.write(
                     "\t".join([domain, initial_dot, cookie.path,
