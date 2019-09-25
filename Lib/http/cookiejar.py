@@ -2032,7 +2032,7 @@ class MozillaCookieJar(FileCookieJar):
                 # detect httponly flag if present
                 if line.startswith(self.httponly_prefix):
                     rest["httponly"] = True
-                    line = line[len(self.httponly_prefix)]
+                    line = line[len(self.httponly_prefix):]
 
                 # last field may be absent, so keep any trailing tab
                 if line.endswith("\n"): line = line[:-1]
