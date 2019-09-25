@@ -2113,6 +2113,6 @@ class MozillaCookieJar(FileCookieJar):
                 if cookie.get_nonstandard_attr("httponly", False):
                     domain = self.httponly_prefix + domain
                 f.write(
-                    "\t".join(domain, initial_dot, cookie.path,
+                    "\t".join([domain, initial_dot, cookie.path,
                                secure, expires, name, value])+
                     "\n")
